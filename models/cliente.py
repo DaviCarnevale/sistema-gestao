@@ -1,6 +1,11 @@
+from utils.validacoes import validar_cpf
+
 class Cliente:
     def __init__(self, CPF: str, nome: str, email: str, telefone: str, CEP: str):
-        self.__cpf = CPF
+        if validar_cpf(CPF):
+            self.__cpf = CPF
+        else:
+            raise ValueError("O CPF digitado é inválido")
         self.nome = nome
         self.email = email
         self.telefone = telefone
@@ -10,14 +15,3 @@ class Cliente:
     def cpf(self):
         return self.__cpf
 
-
-cliente = Cliente(
-    CPF="12345678900",
-    nome="Davi Nunes",
-    email="davi@email.com",
-    telefone="11999999999",
-    CEP="09500000"
-)
-
-print(cliente.nome)
-print(cliente.cpf)
