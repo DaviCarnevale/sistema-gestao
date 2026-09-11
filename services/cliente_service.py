@@ -1,3 +1,9 @@
+from utils.validacoes import (
+    validar_nome, 
+    validar_email, 
+    validar_telefone, 
+    validar_cep
+)
 class ClienteService:
 
     def __init__(self):
@@ -23,3 +29,36 @@ class ClienteService:
             for informacao, dado in informacoes:
                 print(f"{informacao}: {dado}")
             print("-"*20)
+
+
+    def buscar(self, cpf: str):
+        for cliente in self.clientes:
+            if cliente.cpf == cpf:
+                return cliente
+        raise ValueError("Cliente não encontrado")
+
+
+    def editar(self, cpf: str, campo: str, novo_valor: str):
+        cliente = self.buscar(cpf)
+        validacoes = [
+            (validar_nome, "nome"),
+            (validar_email, "email"),
+            (validar_telefone, "telefone"),
+            (validar_cep, "cep")
+        ]
+        for funcao, nome_campo in validacoes:
+            if nome_campo == campo:
+                resultado = funcao(novo_valor)
+                if not resultado:
+                    raise ValueError(f"{campo} é inválido")
+                setattr(cliente, campo, novo_valor)
+                print(f"{campo} alterado com sucesso")
+                break
+        else:
+            raise ValueError(f"{campo} é inválido")
+
+
+    def excluir(self, cpf: str):
+        cliente = self.buscar(cpf)
+        self.clientes.remove(cliente)
+        

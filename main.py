@@ -23,3 +23,9 @@ service.cadastrar(cliente1)
 service.cadastrar(cliente2)
 
 service.listar()
+
+service.editar(cpf="16362732898", campo="cep", novo_valor="09531160")
+
+service.excluir(cpf="1636273898")
+
+service.listar()
