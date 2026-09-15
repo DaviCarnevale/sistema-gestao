@@ -11,7 +11,7 @@ from repositories import cliente_repository
 class ClienteService:
 
     def __init__(self):
-        self.clientes = []
+        self.clientes = cliente_repository.carregar_clientes()
 
 
     def cadastrar(self, cliente):
@@ -19,6 +19,7 @@ class ClienteService:
             if cliente.cpf == cliente_existente.cpf:
                 raise ValueError("Este CPF já está cadastrado no sistema")
         self.clientes.append(cliente)
+        cliente_repository.salvar_clientes(self.clientes)
 
 
     def listar(self):
@@ -56,6 +57,7 @@ class ClienteService:
                 if not resultado:
                     raise ValueError(f"{campo} é inválido")
                 setattr(cliente, campo, novo_valor)
+                cliente_repository.salvar_clientes(self.clientes)
                 print(f"{campo} alterado com sucesso")
                 break
         else:
@@ -65,4 +67,5 @@ class ClienteService:
     def excluir(self, cpf: str):
         cliente = self.buscar(cpf)
         self.clientes.remove(cliente)
+        cliente_repository.salvar_clientes(self.clientes)
         
