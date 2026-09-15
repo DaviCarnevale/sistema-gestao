@@ -4,6 +4,10 @@ from utils.validacoes import (
     validar_telefone, 
     validar_cep
 )
+
+from repositories import cliente_repository
+
+
 class ClienteService:
 
     def __init__(self):

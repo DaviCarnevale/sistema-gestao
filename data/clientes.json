@@ -1,0 +1,16 @@
+[
+    {
+        "cpf": "52998224725",
+        "nome": "Davi",
+        "email": "davi@email.com",
+        "telefone": "11999999999",
+        "cep": "09500000"
+    },
+    {
+        "cpf": "12345678909",
+        "nome": "João",
+        "email": "joao@email.com",
+        "telefone": "11988888888",
+        "cep": "01001000"
+    }
+]
