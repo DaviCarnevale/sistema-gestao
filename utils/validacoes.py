@@ -1,3 +1,5 @@
+# VALIDAÇÕES PARA CLIENTES
+
 def validar_cpf(cpf) -> bool:
     if len(cpf) == 11 and cpf.isdigit():
         if cpf == cpf[0] * 11:
@@ -41,3 +43,18 @@ def validar_cep(cep: str) -> bool:
             and cep.isdigit()
             and cep != cep[0] * 8
     )
+
+
+# VALIDAÇÕES PARA PRODUTOS
+
+def validar_nome_produto(nome: str):
+    return len(nome.strip()) >= 3 and any(char.isalpha() for char in nome)
+
+
+def validar_preco(preco: float):
+    return isinstance(preco, (float, int)) and preco >= 0.01
+
+
+def validar_estoque(qtd: int):
+    return isinstance(qtd, int) and qtd >= 0
+
