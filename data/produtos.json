@@ -1,0 +1,14 @@
+[
+    {
+        "id": 9837,
+        "nome": "Mouse Gamer",
+        "preco": 150.0,
+        "estoque": 20
+    },
+    {
+        "id": 7353,
+        "nome": "Teclado RGB",
+        "preco": 200.0,
+        "estoque": 15
+    }
+]

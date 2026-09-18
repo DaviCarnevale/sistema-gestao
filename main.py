@@ -1,10 +1,12 @@
-from models import cliente
-from services import cliente_service
-from repositories import cliente_repository
-import json
+from models.cliente import Cliente
+from services.produto_service import ProdutoService
+from services.cliente_service import ClienteService
+from repositories.cliente_repository import carregar_clientes
+
+# CLIENTES
 
 '''
-cliente3 = cliente.Cliente(
+cliente3 = Cliente(
     cpf="52348609819", 
     nome="Lucas",
     email="punish@gmail.com",
@@ -12,11 +14,11 @@ cliente3 = cliente.Cliente(
     telefone="11993343535"
     )
 
-c = cliente_service.ClienteService()
+c = ClienteService()
 c.cadastrar(cliente3)   CADASTRA CLIENTES 
 '''
 
-# service = cliente_service.ClienteService() CHAMA O CLIENTE SERVICE
+# service = ClienteService() CHAMA O CLIENTE SERVICE
 
 # service.editar(cpf="12345678909", campo="email", novo_valor="abc@gmail.com") EDITA DADOS DO CLIENTE
 
@@ -24,3 +26,17 @@ c.cadastrar(cliente3)   CADASTRA CLIENTES
 
 # service.listar() LISTA OS CLIENTES
 
+# carregar_clientes()
+
+
+# PRODUTOS
+
+# service = ProdutoService()
+
+# service.cadastrar("Mouse Gamer", 150.00, 20) CADASTRA UM PRODUTO
+
+# service.editar(id=produto.id, campo="preco", novo_valor=120) EDITA UM PRODUTO
+
+# service.excluir(id=8757) EXCLUI UM PRODUTO
+
+# service.listar() LISTA OS PRODUTOS

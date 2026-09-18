@@ -1,4 +1,4 @@
-from models import cliente
+from models.cliente import Cliente
 import json
 
 def cliente_para_dict(cliente):
@@ -12,7 +12,7 @@ def cliente_para_dict(cliente):
 
 
 def dict_para_cliente(dados):
-    return cliente.Cliente(**dados)
+    return Cliente(**dados)
 
 
 def salvar_clientes(clientes):

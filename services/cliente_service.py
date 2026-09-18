@@ -5,13 +5,16 @@ from utils.validacoes import (
     validar_cep
 )
 
-from repositories import cliente_repository
+from repositories.cliente_repository import (
+    carregar_clientes,
+    salvar_clientes
+)
 
 
 class ClienteService:
 
     def __init__(self):
-        self.clientes = cliente_repository.carregar_clientes()
+        self.clientes = carregar_clientes()
 
 
     def cadastrar(self, cliente):
@@ -19,7 +22,7 @@ class ClienteService:
             if cliente.cpf == cliente_existente.cpf:
                 raise ValueError("Este CPF já está cadastrado no sistema")
         self.clientes.append(cliente)
-        cliente_repository.salvar_clientes(self.clientes)
+        salvar_clientes(self.clientes)
 
 
     def listar(self):
@@ -37,9 +40,9 @@ class ClienteService:
 
 
     def buscar(self, cpf: str):
-        for cliente in self.clientes:
-            if cliente.cpf == cpf:
-                return cliente
+        for c in self.clientes:
+            if c.cpf == cpf:
+                return c
         raise ValueError("Cliente não encontrado")
 
 
@@ -57,7 +60,7 @@ class ClienteService:
                 if not resultado:
                     raise ValueError(f"{campo} é inválido")
                 setattr(cliente, campo, novo_valor)
-                cliente_repository.salvar_clientes(self.clientes)
+                salvar_clientes(self.clientes)
                 print(f"{campo} alterado com sucesso")
                 break
         else:
@@ -67,5 +70,5 @@ class ClienteService:
     def excluir(self, cpf: str):
         cliente = self.buscar(cpf)
         self.clientes.remove(cliente)
-        cliente_repository.salvar_clientes(self.clientes)
+        salvar_clientes(self.clientes)
         
