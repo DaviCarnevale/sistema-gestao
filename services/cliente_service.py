@@ -46,6 +46,19 @@ class ClienteService:
         raise ValueError("Cliente não encontrado")
 
 
+    def exibir_cliente(self, cliente):
+        informacoes = [
+            ("CPF", cliente.cpf),
+            ("Nome", cliente.nome),
+            ("Email", cliente.email),
+            ("Telefone", cliente.telefone),
+            ("CEP", cliente.cep)
+        ]
+        for informacao, dado in informacoes:
+            print(f"{informacao}: {dado}")
+        print("-"*20)
+
+
     def editar(self, cpf: str, campo: str, novo_valor: str):
         cliente = self.buscar(cpf)
         validacoes = [
