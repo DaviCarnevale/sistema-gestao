@@ -47,6 +47,18 @@ class ProdutoService:
         raise ValueError("Produto não encontrado")
 
 
+    def exibir_produto(self, produto):
+        informacoes = [
+            ("id", produto.id),
+            ("nome", produto.nome),
+            ("preço", produto.preco),
+            ("estoque", produto.estoque)
+        ]
+        for informacao, dado in informacoes:
+            print(f"{informacao}: {dado}")
+        print("-"*20)
+
+
     def editar(self, id: int, campo: str, novo_valor):
         p = self.buscar(id)
         validacoes = [

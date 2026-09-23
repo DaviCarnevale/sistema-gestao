@@ -1,9 +1,11 @@
 from models.cliente import Cliente
+from models.produto import Produto
 from services.produto_service import ProdutoService
 from services.cliente_service import ClienteService
 from utils.menu import (
     menu_principal,
-    menu_clientes
+    menu_clientes,
+    menu_produtos
     )
 
 cliente_service = ClienteService()
@@ -60,12 +62,93 @@ def executar_menu_clientes():
                 except ValueError as erro:
                     print(erro)
             case 5:
-                cpf = str(input("Digite o CPF do cliente que deseja excluir: "))
-                cliente_service.excluir(cpf=cpf)
+                try:
+                    cpf = str(input("Digite o CPF do cliente que deseja excluir: "))
+                    cliente = cliente_service.buscar(cpf=cpf)
+                    cliente_service.exibir_cliente(cliente=cliente)
+                    opc = int(input("Deseja excluir este cliente do sistema?\n1 - Sim\n0 - Não\n:"))
+                    match opc:
+                        case 1:
+                            cliente_service.excluir(cpf=cpf)
+                        case 0:
+                            break
+                        case _:
+                            print("Opção inválida")
+                except ValueError as erro:
+                    print(erro)
             case 0:
                 break
             case _:
                 pass
+
+
+def executar_menu_produtos():
+    while True:
+        opc = menu_produtos()
+        match opc:
+            case 1:
+                try:
+                    nome = str(input("Nome do produto: "))
+                    preco = float(input("Preço: "))
+                    estoque = int(input("Estoque: "))
+                    produto_service.cadastrar(nome=nome, preco=preco, estoque=estoque)
+                except ValueError as erro:
+                    print(erro)
+            case 2:
+                produto_service.listar()
+            case 3:
+                try:
+                    id = int(input("ID do produto: "))
+                    produto = produto_service.buscar(id=id)
+                    produto_service.exibir_produto(produto=produto)
+                except ValueError as erro:
+                    print(erro)
+            case 4:
+                try:
+                    id_produto = int(input("Digite o ID do produto: "))
+                    produto_service.buscar(id=id_produto)
+                    while True:
+                        print("\n1 - Nome\n2 - Preço\n3 - Estoque\n0 - Voltar")
+                        opc = int(input("Selecione o campo que deseja mudar: "))
+                        match opc:
+                            case 1:
+                                campo = "nome"
+                                novo_valor = str(input("Digite o novo nome: "))
+                            case 2:
+                                campo = "preco"
+                                novo_valor = float(input("Digite o novo preço: "))
+                            case 3:
+                                campo = "estoque"
+                                novo_valor = int(input("Digite a nova quantidade no estoque: "))
+                            case 0:
+                                break
+                            case _:
+                                print("Opção inválida")
+                                continue
+                        produto_service.editar(id=id_produto, campo=campo, novo_valor=novo_valor)
+                        break
+                except ValueError as erro:
+                    print(erro)
+            case 5:
+                try:
+                    id_produto = int(input("Digite o ID do produto que deseja excluir: "))
+                    produto = produto_service.buscar(id=id_produto)
+                    produto_service.exibir_produto(produto=produto)
+                    opc = int(input("Deseja excluir este produto do sistema?\n1 - Sim\n0 - Não\n:"))
+                    match opc:
+                        case 1:
+                            produto_service.excluir(id=id_produto)
+                        case 0:
+                            break
+                        case _:
+                            print("Opção inválida")
+                except ValueError as erro:
+                    print(erro)
+            case 0:
+                break
+            case _:
+                pass
+
 
 while True:
     opc = menu_principal()
@@ -74,7 +157,7 @@ while True:
         case 1:
             executar_menu_clientes()
         case 2:
-            pass
+            executar_menu_produtos()
         case 3:
             pass
         case 0:
@@ -83,31 +166,6 @@ while True:
             pass
 
 
-
-# CLIENTES
-
-'''
-cliente3 = Cliente(
-    cpf="52348609819", 
-    nome="Lucas",
-    email="punish@gmail.com",
-    cep="01000000",
-    telefone="11993343535"
-    )
-
-c = ClienteService()
-c.cadastrar(cliente3)   CADASTRA CLIENTES 
-'''
-
-# service = ClienteService() CHAMA O CLIENTE SERVICE
-
-# service.editar(cpf="12345678909", campo="email", novo_valor="abc@gmail.com") EDITA DADOS DO CLIENTE
-
-# service.excluir(cpf="12345678909") EXCLUI CLIENTE DE CLIENTES.JSON
-
-# service.listar() LISTA OS CLIENTES
-
-# carregar_clientes()
 
 
 # PRODUTOS
